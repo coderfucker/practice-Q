@@ -43,10 +43,7 @@ Q.all([
   test(20),
   test(30)
 ])
-.spread(function (x, y, z) {//三个函数返回的三个值
-  console.log(x, y, z);
-  return x + y + z;
-})
+.spread((x, y, z) => x + y + z)
 .done(function(str){//完成前面的后执行
   console.log(str)
 });
