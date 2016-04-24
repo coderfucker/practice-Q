@@ -32,3 +32,21 @@ httpGet(url.parse("http://example.org/"))
   .then(function(res){
     console.log('promise ===>', res.statusCode);
   })
+
+// 4. Q.all
+function test(value) {
+  return Q.delay(value, 1000);//延迟1秒
+}
+
+Q.all([
+  test(10),//执行三个函数
+  test(20),
+  test(30)
+])
+.spread(function (x, y, z) {//三个函数返回的三个值
+  console.log(x, y, z);
+  return x + y + z;
+})
+.done(function(str){//完成前面的后执行
+  console.log(str)
+});

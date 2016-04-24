@@ -34,7 +34,6 @@ _http2.default.get(_url2.default.parse("http://example.org/"), function (res) {
 var httpGet = function httpGet(opts) {
   var deferred = _q2.default.defer();
   _http2.default.get(opts, deferred.resolve);
-  console.log(deferred.resolve, deferred.promise);
   return deferred.promise;
 };
 httpGet(_url2.default.parse("http://example.org/")).then(function (res) {
@@ -43,4 +42,19 @@ httpGet(_url2.default.parse("http://example.org/")).then(function (res) {
   return httpGet("http://www.google.com");
 }).then(function (res) {
   console.log('promise ===>', res.statusCode);
+});
+
+// 4. Q.all
+function test(value) {
+  return _q2.default.delay(value, 1000); //延迟1秒
+}
+
+_q2.default.all([test(10), //执行三个函数
+test(20), test(30)]).spread(function (x, y, z) {
+  //三个函数返回的三个值
+  console.log(x, y, z);
+  return x + y + z;
+}).done(function (str) {
+  //完成前面的后执行
+  console.log(str);
 });
